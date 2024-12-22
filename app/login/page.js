@@ -12,12 +12,13 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedBlogger, setLoggedBlogger] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       localStorage.setItem("bloggerEmail", email);
-      setLoggedBlogger(localStorage.getItem("bloggerEmail"));
+      setIsLoggedIn(true);
       alert("Login successful!");
     } catch (error) {
       alert(error.message);
@@ -31,7 +32,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     setLoggedBlogger(localStorage.getItem("bloggerEmail"));
-  }, [loggedBlogger]);
+  }, [isLoggedIn]);
 
   const handleRegister = async () => {
     if (!email || !password) {

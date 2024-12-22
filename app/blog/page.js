@@ -9,8 +9,7 @@ export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const author = localStorage.getItem("bloggerEmail");
-  console.log(author);
+  const [author, setAuthor] = useState("");
 
   const fetchPosts = async () => {
     const snapshot = await getDocs(collection(db, "posts"));
@@ -38,6 +37,13 @@ export default function BlogPage() {
 
   useEffect(() => {
     fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    const value = localStorage.getItem("bloggerEmail");
+    if (value) {
+      setAuthor(value);
+    }
   }, []);
 
   return (
